@@ -28,9 +28,9 @@ public class Film {
 	private Categorie categorie;
 	
 	@ManyToMany
-	@JoinTable(name="film_acteur",
+	@JoinTable(name="film_int",
 	joinColumns= @JoinColumn(name="id_film", referencedColumnName="id"),
-	inverseJoinColumns= @JoinColumn(name="id_acteur", referencedColumnName="id")
+	inverseJoinColumns= @JoinColumn(name="id_int", referencedColumnName="id")
 	)
 	private Set<Acteur> acteurs = new HashSet<>();
 	

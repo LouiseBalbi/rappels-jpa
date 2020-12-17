@@ -24,14 +24,14 @@ import com.sun.tools.javac.Main;
 import jpaTest.entite.Acteur;
 import jpaTest.entite.Categorie;
 import jpaTest.entite.Film;
+import jpaTest.entite.Producteur;
 import jpaTest.repo.ActeurRepo;
 import jpaTest.repo.CategorieRepo;
 import jpaTest.repo.FilmRepo;
 
-//@EntityScan(basePackages = {"*"})
+
 @SpringBootApplication
 @EnableTransactionManagement
-//@EnableJpaRepositories("jpaTest.repo")
 public class TestJpa implements CommandLineRunner {
 
 	@PersistenceContext
@@ -118,15 +118,31 @@ public class TestJpa implements CommandLineRunner {
 //		Film film = filmRepo.findByTitre("Traque à Boston");
 //		System.out.println(film);
 		
-		Acteur acteur = acteurRepo.findByNomAndPrenom("WAHLBERG", "Mark");
-		System.out.println(acteur);
-		
-		Film film = filmRepo.findByTitre("Traque à Boston");
-		System.out.println(film);
+//		Acteur acteur = acteurRepo.findByNomAndPrenom("WAHLBERG", "Mark");
+//		System.out.println(acteur);
+//		
+//		Film film = filmRepo.findByTitre("Traque à Boston");
+//		System.out.println(film);
 		
 //		LocalDate date = LocalDate.of(2006,2,15);
 //		Categorie categorie = categorieRepo.findByDateMaj(date);
 //		System.out.println(categorie);
+		
+		
+		//////TP 3
+//		Acteur acteur = new Acteur();
+//		acteur.setNom("testNom");
+//		acteur.setPrenom("testPrenom");
+//		em.persist(acteur);
+		
+		Producteur p = new Producteur();
+		p.setNom("nomProducteur");
+		p.setPrenom("prenomProducteur");
+		em.persist(p);
+		
+		Film f = new Film();
+		f.setTitre("nomFilm");
+		em.persist(f);
 
 		
 	}
