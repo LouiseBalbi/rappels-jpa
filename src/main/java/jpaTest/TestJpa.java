@@ -145,6 +145,12 @@ public class TestJpa implements CommandLineRunner {
 		Acteur acteur = acteurDao.creerActeur("Depp2", "Johnny2", "agence", 0);
 		em.persist(acteur);
 		
+		Acteur acteur2 = acteurDao.creerActeur("Orlando", "Bloom", "agence", 150);
+		em.persist(acteur2);
+		
+		Acteur acteur3 = acteurDao.creerActeur("truc", "truc", "agence", 150);
+		em.persist(acteur3);
+		
 		AdresseDao adresseDao = new AdresseDao();
 		Adresse adresse = adresseDao.creerAdresse(2, "rue de la liberte", "Montpellier", 34000);
 		em.persist(adresse);
@@ -169,7 +175,8 @@ public class TestJpa implements CommandLineRunner {
 		Film f = filmDao.creerFilm("Pirates des caraibes 2");
 		em.persist(f);
 		
-		f.getIntervenants().add(acteurRepo.findByNomAndPrenom("testNom", "testPrenom"));
+		f.getIntervenants().add(acteurRepo.findByNomAndPrenom("Orlando", "Bloom"));
+		f.getIntervenants().add(acteurRepo.findByNomAndPrenom("truc", "truc"));
 		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").setAdresse(adresse);
 		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").getTaches().add(tache);
 		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").getTaches().add(tacheDatee);
