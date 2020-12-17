@@ -32,7 +32,7 @@ public class Film {
 	joinColumns= @JoinColumn(name="id_film", referencedColumnName="id"),
 	inverseJoinColumns= @JoinColumn(name="id_int", referencedColumnName="id")
 	)
-	private Set<Acteur> acteurs = new HashSet<>();
+	private Set<Intervenant> intervenants = new HashSet<>();
 	
 	
 	
@@ -101,19 +101,25 @@ public class Film {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	/**
-	 * @return the acteurs
-	 */
-	public Set<Acteur> getActeurs() {
-		return acteurs;
-	}
-	/**
-	 * @param acteurs the acteurs to set
-	 */
-	public void setActeurs(Set<Acteur> acteurs) {
-		this.acteurs = acteurs;
-	}
+
 	
+	
+	/**
+	 * @return the intervenants
+	 */
+	public Set<Intervenant> getIntervenants() {
+		return intervenants;
+	}
+
+
+	/**
+	 * @param intervenants the intervenants to set
+	 */
+	public void setIntervenants(Set<Intervenant> intervenants) {
+		this.intervenants = intervenants;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Film [id=" + id + ", tritre=" + titre + ", anneeSortie=" + anneeSortie + "]";

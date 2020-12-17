@@ -61,6 +61,43 @@ public class Acteur extends Intervenant{
 
 
 
+	/**
+	 * @return the agence
+	 */
+	public String getAgence() {
+		return agence;
+	}
+
+
+
+	/**
+	 * @param agence the agence to set
+	 */
+	public void setAgence(String agence) {
+		this.agence = agence;
+	}
+
+
+
+	/**
+	 * @return the salaire
+	 */
+	public double getSalaire() {
+		return salaire;
+	}
+
+
+
+	/**
+	 * @param salaire the salaire to set
+	 */
+	public void setSalaire(double salaire) {
+		this.salaire = salaire;
+	}
+
+	
+
+
 //	/**
 //	 * @return the id
 //	 */

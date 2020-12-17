@@ -21,10 +21,21 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.sun.tools.javac.Main;
 
+import jpaTest.dao.ActeurDao;
+import jpaTest.dao.AdresseDao;
+import jpaTest.dao.FilmDao;
+import jpaTest.dao.ProducteurDao;
+import jpaTest.dao.RealisateurDao;
+import jpaTest.dao.TacheDao;
+import jpaTest.dao.TacheDateeDao;
 import jpaTest.entite.Acteur;
+import jpaTest.entite.Adresse;
 import jpaTest.entite.Categorie;
 import jpaTest.entite.Film;
 import jpaTest.entite.Producteur;
+import jpaTest.entite.Realisateur;
+import jpaTest.entite.Tache;
+import jpaTest.entite.TacheDatee;
 import jpaTest.repo.ActeurRepo;
 import jpaTest.repo.CategorieRepo;
 import jpaTest.repo.FilmRepo;
@@ -130,19 +141,38 @@ public class TestJpa implements CommandLineRunner {
 		
 		
 		//////TP 3
-//		Acteur acteur = new Acteur();
-//		acteur.setNom("testNom");
-//		acteur.setPrenom("testPrenom");
-//		em.persist(acteur);
+		ActeurDao acteurDao = new ActeurDao();
+		Acteur acteur = acteurDao.creerActeur("Depp2", "Johnny2", "agence", 0);
+		em.persist(acteur);
 		
-		Producteur p = new Producteur();
-		p.setNom("nomProducteur");
-		p.setPrenom("prenomProducteur");
+		AdresseDao adresseDao = new AdresseDao();
+		Adresse adresse = adresseDao.creerAdresse(2, "rue de la liberte", "Montpellier", 34000);
+		em.persist(adresse);
+		
+		ProducteurDao producteurDao = new ProducteurDao();
+		Producteur p = producteurDao.creerProducteur("le", "producteur", 120);
 		em.persist(p);
 		
-		Film f = new Film();
-		f.setTitre("nomFilm");
+		RealisateurDao realisateurDao = new RealisateurDao();
+		Realisateur r = realisateurDao.creerRealisateur("nomreal", "prenomreal", 30);
+		em.persist(r);
+		
+		TacheDao tacheDao = new TacheDao();
+		Tache tache = tacheDao.creerTache("test", LocalDate.now());
+		em.persist(tache);
+		
+		TacheDateeDao tacheDateeDao = new TacheDateeDao();
+		TacheDatee tacheDatee = tacheDateeDao.creerTacheDatee("test", LocalDate.now(), LocalDate.now());
+		em.persist(tacheDatee);
+		
+		FilmDao filmDao = new FilmDao();
+		Film f = filmDao.creerFilm("Pirates des caraibes 2");
 		em.persist(f);
+		
+		f.getIntervenants().add(acteurRepo.findByNomAndPrenom("testNom", "testPrenom"));
+		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").setAdresse(adresse);
+		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").getTaches().add(tache);
+		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").getTaches().add(tacheDatee);
 
 		
 	}
