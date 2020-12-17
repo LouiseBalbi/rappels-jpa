@@ -32,6 +32,7 @@ import jpaTest.entite.Acteur;
 import jpaTest.entite.Adresse;
 import jpaTest.entite.Categorie;
 import jpaTest.entite.Film;
+import jpaTest.entite.Intervenant;
 import jpaTest.entite.Producteur;
 import jpaTest.entite.Realisateur;
 import jpaTest.entite.Tache;
@@ -141,46 +142,31 @@ public class TestJpa implements CommandLineRunner {
 		
 		
 		//////TP 3
+		
 		ActeurDao acteurDao = new ActeurDao();
-		Acteur acteur = acteurDao.creerActeur("Depp2", "Johnny2", "agence", 0);
-		em.persist(acteur);
-		
-		Acteur acteur2 = acteurDao.creerActeur("Orlando", "Bloom", "agence", 150);
-		em.persist(acteur2);
-		
-		Acteur acteur3 = acteurDao.creerActeur("truc", "truc", "agence", 150);
-		em.persist(acteur3);
-		
-		AdresseDao adresseDao = new AdresseDao();
-		Adresse adresse = adresseDao.creerAdresse(2, "rue de la liberte", "Montpellier", 34000);
-		em.persist(adresse);
-		
-		ProducteurDao producteurDao = new ProducteurDao();
-		Producteur p = producteurDao.creerProducteur("le", "producteur", 120);
-		em.persist(p);
-		
-		RealisateurDao realisateurDao = new RealisateurDao();
-		Realisateur r = realisateurDao.creerRealisateur("nomreal", "prenomreal", 30);
-		em.persist(r);
-		
-		TacheDao tacheDao = new TacheDao();
-		Tache tache = tacheDao.creerTache("test", LocalDate.now());
-		em.persist(tache);
-		
-		TacheDateeDao tacheDateeDao = new TacheDateeDao();
-		TacheDatee tacheDatee = tacheDateeDao.creerTacheDatee("test", LocalDate.now(), LocalDate.now());
-		em.persist(tacheDatee);
-		
-		FilmDao filmDao = new FilmDao();
-		Film f = filmDao.creerFilm("Pirates des caraibes 2");
-		em.persist(f);
-		
-		f.getIntervenants().add(acteurRepo.findByNomAndPrenom("Orlando", "Bloom"));
-		f.getIntervenants().add(acteurRepo.findByNomAndPrenom("truc", "truc"));
-		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").setAdresse(adresse);
-		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").getTaches().add(tache);
-		acteurRepo.findByNomAndPrenom("Depp2", "Johnny2").getTaches().add(tacheDatee);
+		 Acteur acteur = acteurDao.creerActeur("Depp3", "Johnny3", "agence", 0);
+	        em.persist(acteur);
 
+	        TacheDao tacheDao = new TacheDao();
+	        Tache tache = tacheDao.creerTache("tache", LocalDate.now());
+	        em.persist(tache);
+	        tache.setIntervenant(acteur);
+
+	        TacheDateeDao tacheDateeDao = new TacheDateeDao();
+	        TacheDatee tacheDatee = tacheDateeDao.creerTacheDatee("tachedatee", LocalDate.now(), LocalDate.now());
+	        em.persist(tacheDatee);
+	        tacheDatee.setIntervenant(acteur);
+
+	        AdresseDao adresseDao = new AdresseDao();
+	        Adresse adresse = adresseDao.creerAdresse(5, "rue de la liberte", "Montpellier", 34000);
+	        em.persist(adresse);
+	        adresse.setIntervenant(acteur);
+
+	        FilmDao filmDao = new FilmDao();
+	        Film f = filmDao.creerFilm("Pirates des caraibes 3");
+	        em.persist(f);
+	        f.getIntervenants().add(acteur);
+		
 		
 	}
 
