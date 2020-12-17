@@ -1,5 +1,8 @@
 package jpaTest;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -7,9 +10,13 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.sun.tools.javac.Main;
@@ -17,13 +24,29 @@ import com.sun.tools.javac.Main;
 import jpaTest.entite.Acteur;
 import jpaTest.entite.Categorie;
 import jpaTest.entite.Film;
+import jpaTest.repo.ActeurRepo;
+import jpaTest.repo.CategorieRepo;
+import jpaTest.repo.FilmRepo;
 
+//@EntityScan(basePackages = {"*"})
 @SpringBootApplication
 @EnableTransactionManagement
+//@EnableJpaRepositories("jpaTest.repo")
 public class TestJpa implements CommandLineRunner {
 
 	@PersistenceContext
 	private EntityManager em;
+	
+	
+	CategorieRepo categorieRepo;
+	ActeurRepo acteurRepo;
+	FilmRepo filmRepo;
+	
+	public TestJpa(CategorieRepo categorieRepo, ActeurRepo acteurRepo, FilmRepo filmRepo) {
+		this.categorieRepo = categorieRepo;
+		this.acteurRepo = acteurRepo;
+		this.filmRepo = filmRepo;
+	}
 
 	public static void main(String[] args) {
 
@@ -39,10 +62,10 @@ public class TestJpa implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
-		Film f = em.find(Film.class, 1);
-		Acteur a = em.find(Acteur.class, 1);
-		System.out.println(f.toString());
-		System.out.println(a.toString());
+//		Film f = em.find(Film.class, 1);
+//		Acteur a = em.find(Acteur.class, 1);
+//		System.out.println(f.toString());
+//		System.out.println(a.toString());
 
 		// ajout d'un acteur
 //	Acteur acteur = new Acteur("Pegg", "Simon");
@@ -83,11 +106,27 @@ public class TestJpa implements CommandLineRunner {
 		
 		
 		// supprimer des categories
-		 Categorie cat10 = em.find(Categorie.class,10); 
-         em.remove(cat10);
-
-        Categorie cat13 = em.find(Categorie.class, 13);
-        em.remove(cat13);
+//		 Categorie cat10 = em.find(Categorie.class,10); 
+//         em.remove(cat10);
+//
+//        Categorie cat13 = em.find(Categorie.class, 13);
+//        em.remove(cat13);
+		
+		
+		////// avec SpringData
+		
+//		Film film = filmRepo.findByTitre("Traque à Boston");
+//		System.out.println(film);
+		
+		Acteur acteur = acteurRepo.findByNomAndPrenom("WAHLBERG", "Mark");
+		System.out.println(acteur);
+		
+		Film film = filmRepo.findByTitre("Traque à Boston");
+		System.out.println(film);
+		
+//		LocalDate date = LocalDate.of(2006,2,15);
+//		Categorie categorie = categorieRepo.findByDateMaj(date);
+//		System.out.println(categorie);
 
 		
 	}
